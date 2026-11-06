@@ -4,6 +4,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="upt_navy">#FF003366</color>
     <color name="upt_light">#7C99DC</color>
+    <color name="explorer_wave">#245A81</color>
+    <color name="explorer_surf">#21714E</color>
+    <color name="explorer_unknown">#687781</color>
+    <color name="explorer_favorite">#AD6900</color>
 
 
 </resources>

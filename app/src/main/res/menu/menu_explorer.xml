@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_refresh" android:title="@string/menu_refresh"
+        app:showAsAction="never" />
+    <item android:id="@+id/action_choose_beach" android:title="@string/explorer_menu_beach"
+        app:showAsAction="never">
+        <menu>
+            <group android:id="@+id/group_beaches" android:checkableBehavior="single">
+                <item android:id="@+id/action_beach_matosinhos" android:title="@string/beach_matosinhos" />
+                <item android:id="@+id/action_beach_povoa" android:title="@string/beach_povoa" />
+                <item android:id="@+id/action_beach_nazare" android:title="@string/beach_nazare" />
+            </group>
+        </menu>
+    </item>
+    <item android:id="@+id/action_about" android:title="@string/menu_about"
+        app:showAsAction="never" />
+</menu>

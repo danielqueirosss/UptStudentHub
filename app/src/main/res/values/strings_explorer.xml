@@ -3,4 +3,39 @@
     <string name="beach_matosinhos">Matosinhos</string>
     <string name="beach_povoa">Póvoa de Varzim</string>
     <string name="beach_nazare">Nazaré</string>
+    <string name="btn_open_explorer">Explorer — Mar e praias</string>
+    <string name="explorer_label">Mar e praias</string>
+    <string name="explorer_greeting">Olá, %1$s!</string>
+    <string name="explorer_menu_beach">Escolher praia</string>
+    <string name="explorer_idle">Pronto para consultar a previsão.</string>
+    <string name="explorer_loading">A carregar a previsão de %1$s…</string>
+    <string name="explorer_success">Previsão carregada.</string>
+    <string name="explorer_empty">Sem previsões disponíveis para esta praia.</string>
+    <string name="explorer_cancelled">Pedido cancelado.</string>
+    <string name="explorer_no_name">estudante</string>
+    <string name="explorer_data_source">Dados: Open-Meteo · Horas de Lisboa</string>
+    <string name="explorer_retained_data">A mostrar a última previsão carregada de %1$s.</string>
+    <string name="explorer_date_hour">%1$s/%2$s · %3$s</string>
+    <string name="explorer_height">Altura: %1$s</string>
+    <string name="explorer_period">Período: %1$s</string>
+    <string name="explorer_direction">Direção: %1$s</string>
+    <string name="explorer_water">Água: %1$s</string>
+    <string name="explorer_metres">%1$.1f m</string>
+    <string name="explorer_seconds">%1$.1f s</string>
+    <string name="explorer_degrees">%1$.0f° · %2$s</string>
+    <string name="explorer_celsius">%1$.1f °C</string>
+    <string name="explorer_unavailable">Sem dados</string>
+    <string name="explorer_surf_good">Bom para surf</string>
+    <string name="explorer_surf_below">Altura até ao limiar</string>
+    <string name="explorer_surf_unknown">Altura indisponível</string>
+    <string name="explorer_surf_threshold">Ícone de surf: ondas acima de %1$.1f m</string>
+    <string name="explorer_favorite_description">Favorito</string>
+    <plurals name="explorer_hour_count">
+        <item quantity="one">%1$d hora de previsão</item>
+        <item quantity="other">%1$d horas de previsão</item>
+    </plurals>
+    <string-array name="explorer_cardinal_points">
+        <item>N</item><item>NE</item><item>E</item><item>SE</item>
+        <item>S</item><item>SO</item><item>O</item><item>NO</item>
+    </string-array>
 </resources>

@@ -2,6 +2,7 @@ package pt.upt.studenthub;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.Nullable;
@@ -147,6 +148,7 @@ public class ExplorerViewModel extends ViewModel {
 
     private void startRequest(Beach beach, ExplorerSettings settings) {
         final long generation = ++requestGeneration;
+        Log.d("ExplorerRequest", "start #" + generation + " " + beach.id);
         UiState loading = new UiState(Status.LOADING, ErrorType.NONE, 0,
                 beach, settings, current.items, current.dataBeach, current.dataSettings);
         // Guardar o Future antes de notificar observadores permite cancelar logo ao ver LOADING.

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+<LinearLayout
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_m">
+    <TextView android:id="@+id/tvExplorerGreeting"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBodyLarge" />
+    <TextView android:id="@+id/tvExplorerBeach"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+    <TextView android:id="@+id/tvExplorerStatus"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:text="@string/explorer_idle" />
+    <ProgressBar android:id="@+id/progressExplorer"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:indeterminate="true" android:visibility="gone" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:baselineAligned="false"
+        android:layout_marginTop="@dimen/spacing_s">
+        <Button android:id="@+id/btnExplorerRefresh"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginEnd="@dimen/spacing_s" android:minHeight="@dimen/touch_target"
+            android:text="@string/btn_refresh" />
+        <Button android:id="@+id/btnExplorerCancel" style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:minHeight="@dimen/touch_target" android:enabled="false"
+            android:text="@string/btn_cancel" />
+    </LinearLayout>
+    <TextView android:id="@+id/tvExplorerRetained"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s" android:visibility="gone" />
+    <TextView android:id="@+id/tvExplorerCount"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:textAppearance="?attr/textAppearanceTitleSmall" />
+    <TextView android:id="@+id/tvExplorerThreshold"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceBodySmall" />
+    <ListView android:id="@+id/listExplorer"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:divider="?android:attr/listDivider"
+        android:dividerHeight="@dimen/explorer_divider_height"
+        android:saveEnabled="false" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:text="@string/explorer_data_source"
+        android:textAppearance="?attr/textAppearanceBodySmall" />
+</LinearLayout>
+</FrameLayout>

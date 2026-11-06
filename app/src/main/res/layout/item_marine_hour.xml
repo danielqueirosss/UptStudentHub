@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:baselineAligned="false"
+    android:paddingTop="@dimen/spacing_m" android:paddingBottom="@dimen/spacing_m">
+    <ImageView android:id="@+id/ivWave"
+        android:layout_width="@dimen/explorer_icon_size" android:layout_height="@dimen/explorer_icon_size"
+        android:layout_marginEnd="@dimen/spacing_m" android:contentDescription="@null" />
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+        android:layout_weight="1" android:orientation="vertical">
+        <TextView android:id="@+id/tvMarineTime"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <TextView android:id="@+id/tvWaveHeight"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/tvWavePeriod"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/tvWaveDirection"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/tvWaterTemperature"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <TextView android:id="@+id/tvSurfLevel"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceLabelMedium" />
+    </LinearLayout>
+    <ImageView android:id="@+id/ivMarineFavorite"
+        android:layout_width="@dimen/explorer_star_size" android:layout_height="@dimen/explorer_star_size"
+        android:layout_marginStart="@dimen/spacing_s" android:src="@drawable/ic_favorite"
+        android:contentDescription="@string/explorer_favorite_description" android:visibility="gone" />
+</LinearLayout>

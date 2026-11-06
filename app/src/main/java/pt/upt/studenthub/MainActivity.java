@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         btnOpenTimetable.setOnClickListener(v -> openWith(TimetableActivity.class));
         // Module 2 (Week 7): campus weather screen (network)
         btnOpenWeather.setOnClickListener(v -> openWith(WeatherActivity.class));
+        Button btnOpenExplorer = findViewById(R.id.btnOpenExplorer);
+        btnOpenExplorer.setOnClickListener(v -> openWith(ExplorerActivity.class));
     }
     /** Validates the name (Week 3) and opens the target screen with an extra (Week 4). */
     private void openWith(Class<?> target) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         String name = etName.getText().toString().trim();
         if (name.isEmpty()) {
             etName.setError(getString(R.string.error_name_required));
+            etName.requestFocus();
             return null;
         }
         return name;
