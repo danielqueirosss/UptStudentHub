@@ -16,3 +16,11 @@ Implementação em 12 etapas.
  11  Único bónus: tema escuro completo com values-night, incluindo módulos existentes
  12  Validação final, correções, mapa RF/RT, relatório, guião do vídeo, APK e preparação do ZIP
 
+ETAPA 1
+Identificação do projeto: colocado o teu nome e número de aluno, alterado o identificador da aplicação e traduzidos os textos para português.
+
+ETAPA 2
+Preparação dos dados: criadas as classes das praias, previsões e definições; preparados os pedidos à Open-Meteo e a leitura das respostas, incluindo dados em falta.
+
+ETAPA 3
+Gestão do carregamento: implementados os pedidos em segundo plano, os estados de carregamento/erro/cancelamento e a proteção contra respostas antigas. Preparados também favoritos e definições em memória.
