@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Week 7 strings. A project may have several values files: Android merges them. -->
+<resources>
+    <!-- MainActivity -->
+    <string name="btn_open_weather">Meteorologia do campus</string>
+    <!-- WeatherActivity -->
+    <string name="weather_label">Meteorologia do campus</string>
+    <string name="weather_title">Olá, %1$s — meteorologia do campus UPT</string>
+    <string name="weather_location">Porto · Universidade Portucalense</string>
+    <string name="cb_auto_refresh">Atualizar automaticamente quando a rede regressar</string>
+    <string name="btn_refresh">Atualizar</string>
+    <string name="banner_offline">Sem ligação à rede</string>
+    <string name="cd_weather_progress">A carregar dados meteorológicos</string>
+    <!-- Status messages -->
+    <string name="status_weather_idle">Toca em Atualizar para consultar a meteorologia</string>
+    <string name="status_loading">A contactar o servidor de meteorologia…</string>
+    <string name="status_success">Atualizado às %1$s</string>
+    <string name="err_no_connection">Sem ligação ao servidor. Verifica a tua rede.</string>
+    <string name="err_timeout">O servidor demorou demasiado tempo a responder.</string>
+    <string name="err_http">O servidor respondeu com o erro HTTP %1$d.</string>
+    <string name="err_parse">O servidor enviou dados inválidos.</string>
+    <!-- Weather values -->
+    <string name="temp_value">%1$.1f °C</string>
+    <string name="humidity_value">Humidade: %1$d%%</string>
+    <string name="wind_value">Vento: %1$.1f km/h</string>
+    <!-- Toasts -->
+    <string name="toast_airplane_on">Modo de avião ativado</string>
+    <string name="toast_airplane_off">Modo de avião desativado</string>
+    <string name="toast_back_online">Ligação restabelecida — a atualizar…</string>
+    <string name="toast_main_thread">NetworkOnMainThreadException: os pedidos de rede não são permitidos na thread principal</string>
+    <!-- Menu -->
+    <string name="menu_refresh">Atualizar</string>
+    <string name="menu_main_thread">Consultar na thread principal (má prática)</string>
+    <string name="menu_server_error">Simular erro do servidor</string>
+    <!-- WMO weather codes (https://open-meteo.com/en/docs) -->
+    <string name="wmo_clear">Céu limpo</string>
+    <string name="wmo_mainly_clear">Céu pouco nublado</string>
+    <string name="wmo_partly_cloudy">Céu parcialmente nublado</string>
+    <string name="wmo_overcast">Céu encoberto</string>
+    <string name="wmo_fog">Nevoeiro</string>
+    <string name="wmo_drizzle">Chuvisco</string>
+    <string name="wmo_rain">Chuva</string>
+    <string name="wmo_snow">Neve</string>
+    <string name="wmo_showers">Aguaceiros</string>
+    <string name="wmo_snow_showers">Aguaceiros de neve</string>
+    <string name="wmo_thunderstorm">Trovoada</string>
+    <string name="wmo_unknown">Condições desconhecidas</string>
+</resources>

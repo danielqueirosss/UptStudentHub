@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Week 7: the app needs Internet access (normal permission, granted at install) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Week 7: read the network state (ConnectivityManager / NetworkCallback) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.UPTStudentHub">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TimetableActivity"
+            android:exported="false"
+            android:label="@string/timetable_label"
+            android:parentActivityName=".MainActivity" />
+        <!-- Week 7: new screen, child of MainActivity (Up navigation) -->
+        <activity
+            android:name=".WeatherActivity"
+            android:exported="false"
+            android:label="@string/weather_label"
+            android:parentActivityName=".MainActivity" />
+    </application>
+</manifest>

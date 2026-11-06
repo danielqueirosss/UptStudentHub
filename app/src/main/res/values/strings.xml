@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">UPT Student Hub</string>
+    <string name="timetable_label">Horário</string>
+
+    <!-- MainActivity -->
+    <string name="welcome_title">Bem-vindo ao UPT Student Hub</string>
+    <string name="hint_student_name">Nome do estudante</string>
+    <string name="btn_open_timetable">Abrir o meu horário</string>
+    <string name="error_name_required">Introduz o teu nome</string>
+
+    <!-- TimetableActivity -->
+    <string name="timetable_title">Horário de %1$s</string>
+    <string name="btn_sync">Sincronizar horário</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_tap">Toca aqui (%1$d)</string>
+    <string name="status_idle">Pronto para sincronizar</string>
+    <string name="status_running">A sincronizar… %1$d%%</string>
+    <string name="status_done">Sincronização concluída: %1$d aulas</string>
+    <string name="status_cancelled">Sincronização cancelada</string>
+    <string name="cd_progress">Progresso da sincronização do horário</string>
+    <string name="msg_blocked">A interface esteve bloqueada durante 6 segundos</string>
+
+    <!-- Menus and dialog -->
+    <string name="menu_clear">Limpar</string>
+    <string name="menu_block_ui">Bloquear interface (má prática)</string>
+    <string name="menu_about">Sobre</string>
+    <string name="about_title">Sobre</string>
+    <string name="about_message">UPT Student Hub — Modules 1–3\nDaniel Neto · Aluno 51602\nVariante 3 — Mar e praias\nLaboratório de Aplicações Móveis</string>
+    <string name="ok">OK</string>
+
+    <!-- Simulated server data -->
+    <string-array name="sessions">
+        <item>Seg 09:00 - Laboratório de Aplicações Móveis</item>
+        <item>Seg 14:00 - Bases de Dados</item>
+        <item>Ter 10:00 - Engenharia de Software</item>
+        <item>Qua 11:00 - Redes de Computadores</item>
+        <item>Qui 16:00 - Inteligência Artificial</item>
+        <item>Sex 09:30 - Sistemas Operativos</item>
+    </string-array>
+</resources>
