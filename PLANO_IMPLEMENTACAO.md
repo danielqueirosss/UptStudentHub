@@ -24,3 +24,11 @@ Preparação dos dados: criadas as classes das praias, previsões e definições
 
 ETAPA 3
 Gestão do carregamento: implementados os pedidos em segundo plano, os estados de carregamento/erro/cancelamento e a proteção contra respostas antigas. Preparados também favoritos e definições em memória.
+
+ETAPA 4
+Interface do Explorer: botão no ecrã inicial com validação do nome, cumprimento ao estudante e lista de previsões reais com ItemAdapter e ViewHolder. Cada linha mostra data/hora, altura, período e direção da onda, temperatura da água e ícone conforme o limiar de surf.
+Inclui carregamento automático, estados visíveis, Atualizar/Cancelar, menu de escolha exclusiva da praia, Sobre, navegação Up e animação de entrada da lista. Os dados anteriores continuam identificados após cancelamento ou erro. Foram corrigidas as margens, a seleção do menu e a ActionBar noturna necessária à navegação.
+
+ETAPA 5 
+Detalhe e favoritos: tocar numa linha abre DetailActivity com os dados marítimos em extras. DetailViewModel faz o segundo pedido em fundo e seleciona vento, direção do vento e temperatura do ar da hora exata. O cartão tem animação de entrada, mensagens de erro e botão para repetir o pedido. DetailContract trata a passagem dos dados e ExplorerFormat mantém a apresentação consistente com a lista.
+Marcar/desmarcar favorito prepara um resultado com a chave praia + data/hora, devolvido por startActivityForResult/setResult ao regressar por Up ou Back. A lista atualiza a estrela correta. Remover exige AlertDialog e as alterações dão feedback por Toast. Estado do favorito e confirmação pendente sobrevivem à rotação; o ViewModel conserva o pedido e os dados. O ciclo de vida do detalhe é registado no Logcat.

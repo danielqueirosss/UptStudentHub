@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fitsSystemWindows="true" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="@dimen/spacing_m">
+        <TextView android:id="@+id/tvDetailBeach"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+        <TextView android:id="@+id/tvDetailTime"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceTitleMedium" />
+        <Button android:id="@+id/btnDetailFavorite" style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m" android:minHeight="@dimen/touch_target"
+            android:text="@string/detail_mark_favorite" />
+        <com.google.android.material.card.MaterialCardView android:id="@+id/detailCard"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="@dimen/spacing_m">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/detail_sea_title" android:textAppearance="?attr/textAppearanceTitleLarge" />
+                <TextView android:id="@+id/tvDetailHeight"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_s" />
+                <TextView android:id="@+id/tvDetailPeriod"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/tvDetailDirection"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/tvDetailWater"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_l"
+                    android:text="@string/detail_weather_title" android:textAppearance="?attr/textAppearanceTitleLarge" />
+                <TextView android:id="@+id/tvDetailStatus"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_s" android:text="@string/detail_idle" />
+                <ProgressBar android:id="@+id/progressDetail"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:indeterminate="true" android:visibility="gone" />
+                <LinearLayout android:id="@+id/detailWeatherValues"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_s" android:orientation="vertical"
+                    android:visibility="gone">
+                    <TextView android:id="@+id/tvDetailWindSpeed"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" />
+                    <TextView android:id="@+id/tvDetailWindDirection"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" />
+                    <TextView android:id="@+id/tvDetailAir"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" />
+                </LinearLayout>
+                <Button android:id="@+id/btnDetailRefresh"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_m" android:minHeight="@dimen/touch_target"
+                    android:text="@string/detail_retry" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m" android:text="@string/explorer_data_source"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+    </LinearLayout>
+</ScrollView>

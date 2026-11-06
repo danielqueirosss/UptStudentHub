@@ -36,5 +36,10 @@
             android:exported="false"
             android:label="@string/explorer_label"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false"
+            android:label="@string/detail_label"
+            android:parentActivityName=".ExplorerActivity" />
     </application>
 </manifest>

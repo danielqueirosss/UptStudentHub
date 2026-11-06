@@ -1,5 +1,6 @@
 package pt.upt.studenthub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
@@ -20,6 +21,9 @@ import java.util.Locale;
 /** Ecrã da lista marítima: observa o ViewModel e converte estado/modelos em interface. */
 public class ExplorerActivity extends AppCompatActivity {
     private static final String KEY_LIST_POSITION = "explorer.list.position";
+    private static final String KEY_DETAIL_ITEM = "explorer.detail.item";
+    private static final int REQUEST_DETAIL = 100;
+    private String pendingDetailKey;
     private ExplorerViewModel viewModel;
     private ItemAdapter adapter;
     private ListView list;
@@ -56,11 +60,13 @@ public class ExplorerActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         if (savedInstanceState != null) {
             pendingListPosition = savedInstanceState.getParcelable(KEY_LIST_POSITION);
+            pendingDetailKey = savedInstanceState.getString(KEY_DETAIL_ITEM);
             restoring = true;
         }
         viewModel = new ViewModelProvider(this).get(ExplorerViewModel.class);
         refresh.setOnClickListener(v -> viewModel.refresh());
         cancel.setOnClickListener(v -> viewModel.cancel());
+        list.setOnItemClickListener((parent, view, position, id) -> openDetail(adapter.getItem(position)));
         viewModel.getState().observe(this, this::render);
         viewModel.getFavorites().observe(this, adapter::submitFavorites);
         viewModel.loadIfNeeded();
@@ -72,6 +78,7 @@ public class ExplorerActivity extends AppCompatActivity {
         progress.setVisibility(loading ? View.VISIBLE : View.GONE);
         refresh.setEnabled(!loading);
         cancel.setEnabled(loading);
+        list.setEnabled(!loading); // Abrir o detalhe lança o pedido B; fica indisponível durante LOADING.
         status.setText(statusText(state));
 
         boolean hasData = !state.items.isEmpty();
@@ -127,9 +134,35 @@ public class ExplorerActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(KEY_DETAIL_ITEM, pendingDetailKey);
         outState.putParcelable(KEY_LIST_POSITION,
                 pendingListPosition == null ? list.onSaveInstanceState() : pendingListPosition);
         super.onSaveInstanceState(outState);
+    }
+
+    private void openDetail(MarineHour item) {
+        ExplorerViewModel.UiState state = viewModel.getState().getValue();
+        if (state == null || state.status == ExplorerViewModel.Status.LOADING || pendingDetailKey != null) {
+            return;
+        }
+        pendingDetailKey = item.key();
+        startActivityForResult(DetailContract.createIntent(this, item,
+                viewModel.isFavorite(item.key())), REQUEST_DETAIL);
+    }
+
+    /** Recebe o resultado do detalhe pelo mecanismo apresentado na Semana 4. */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_DETAIL) {
+            if (resultCode == RESULT_OK && data != null && pendingDetailKey != null
+                    && pendingDetailKey.equals(data.getStringExtra(DetailContract.EXTRA_KEY))
+                    && data.hasExtra(DetailContract.EXTRA_FAVORITE)) {
+                viewModel.setFavorite(pendingDetailKey,
+                        data.getBooleanExtra(DetailContract.EXTRA_FAVORITE, false));
+            }
+            pendingDetailKey = null;
+        }
     }
 
     /** Cria as ações já disponíveis; comparação e definições serão ligadas nas suas etapas. */

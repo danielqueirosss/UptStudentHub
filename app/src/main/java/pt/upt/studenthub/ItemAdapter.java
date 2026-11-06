@@ -14,15 +14,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 /** Adapter da ListView: reutiliza linhas e referências às Views com o padrão ViewHolder. */
 public final class ItemAdapter extends BaseAdapter {
-    private static final Locale PORTUGUESE = new Locale("pt", "PT");
     private final Context context;
     private final LayoutInflater inflater;
-    private final String[] cardinalPoints;
     private List<MarineHour> items = Collections.emptyList();
     private Set<String> favorites = Collections.emptySet();
     private ExplorerSettings settings = ExplorerSettings.defaults();
@@ -31,7 +28,6 @@ public final class ItemAdapter extends BaseAdapter {
     public ItemAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
-        cardinalPoints = context.getResources().getStringArray(R.array.explorer_cardinal_points);
     }
 
     /** Atualiza os dados; devolve true apenas quando a lista mudou, para controlar a animação. */
@@ -60,7 +56,7 @@ public final class ItemAdapter extends BaseAdapter {
         return items.size();
     }
 
-    /** Modelo da linha selecionada, para o futuro pedido de detalhe. */
+    /** Modelo da linha selecionada, usado para abrir o detalhe da praia e hora corretas. */
     @Override
     public MarineHour getItem(int position) {
         return items.get(position);
@@ -84,8 +80,7 @@ public final class ItemAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         MarineHour item = getItem(position);
-        holder.time.setText(context.getString(R.string.explorer_date_hour,
-                item.time.substring(8, 10), item.time.substring(5, 7), item.time.substring(11)));
+        holder.time.setText(ExplorerFormat.time(context, item.time));
         holder.height.setText(context.getString(R.string.explorer_height,
                 measurement(item.waveHeight, R.string.explorer_metres)));
         holder.period.setText(context.getString(R.string.explorer_period,
@@ -108,18 +103,11 @@ public final class ItemAdapter extends BaseAdapter {
     }
 
     private String measurement(@Nullable Double value, int formatRes) {
-        return value == null ? context.getString(R.string.explorer_unavailable)
-                : String.format(PORTUGUESE, context.getString(formatRes), value);
+        return ExplorerFormat.measurement(context, value, formatRes);
     }
 
     private String direction(@Nullable Double degrees) {
-        if (degrees == null) {
-            return context.getString(R.string.explorer_unavailable);
-        }
-        double normalized = (degrees % 360 + 360) % 360;
-        int point = (int) Math.floor((normalized + 22.5) / 45.0) % cardinalPoints.length;
-        return String.format(PORTUGUESE, context.getString(R.string.explorer_degrees),
-                normalized, cardinalPoints[point]);
+        return ExplorerFormat.direction(context, degrees);
     }
 
     /** Referências encontradas apenas na criação da linha, em vez de em cada getView(). */
