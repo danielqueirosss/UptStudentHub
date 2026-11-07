@@ -41,5 +41,10 @@
             android:exported="false"
             android:label="@string/detail_label"
             android:parentActivityName=".ExplorerActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/settings_title"
+            android:parentActivityName=".ExplorerActivity" />
     </application>
 </manifest>

@@ -28,7 +28,7 @@
     <string name="explorer_surf_good">Bom para surf</string>
     <string name="explorer_surf_below">Altura até ao limiar</string>
     <string name="explorer_surf_unknown">Altura indisponível</string>
-    <string name="explorer_surf_threshold">Ícone de surf: ondas acima de %1$.1f m</string>
+    <string name="explorer_surf_threshold">Ícone de surf: ondas acima de %1$s m</string>
     <string name="explorer_favorite_description">Favorito</string>
     <string name="detail_label">Detalhe da previsão</string>
     <string name="detail_sea_title">Mar</string>
@@ -51,8 +51,8 @@
     <string name="detail_favorite_added">Previsão marcada como favorita.</string>
     <string name="detail_favorite_removed">Previsão removida dos favoritos.</string>
     <plurals name="explorer_hour_count">
-        <item quantity="one">%1$d hora de previsão</item>
-        <item quantity="other">%1$d horas de previsão</item>
+        <item quantity="one">%1$d previsão horária</item>
+        <item quantity="other">%1$d previsões horárias</item>
     </plurals>
     <string-array name="explorer_cardinal_points">
         <item>N</item><item>NE</item><item>E</item><item>SE</item>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Definições</string>
+    <string name="settings_heading">Personaliza a previsão</string>
+    <string name="settings_threshold_label">Limiar de onda (0,5–5,0 m)</string>
+    <string name="settings_threshold_help">Ondas acima deste valor recebem o ícone de surf.</string>
+    <string name="settings_hours_label">Intervalo entre horas da lista</string>
+    <string name="settings_one_hour">1 hora</string>
+    <string name="settings_three_hours">3 horas</string>
+    <string name="settings_days_label">Dias de previsão</string>
+    <string name="settings_second_day">Incluir o segundo dia</string>
+    <string name="settings_days_help">Desmarcado: 1 dia. Marcado: 2 dias.</string>
+    <string name="settings_refresh_label">Atualização periódica (1–60 min)</string>
+    <string name="settings_save">Guardar</string>
+    <string name="settings_threshold_error">Introduz um número entre 0,5 e 5,0 (vírgula ou ponto decimal).</string>
+    <string name="settings_refresh_error">Introduz um número inteiro entre 1 e 60.</string>
+    <string name="settings_invalid_result">As definições recebidas são inválidas.</string>
+    <string name="settings_saved">Definições guardadas. A atualizar a previsão…</string>
+</resources>

@@ -9,6 +9,11 @@ public final class ExplorerFormat {
     private static final Locale PORTUGUESE = new Locale("pt", "PT");
     private ExplorerFormat() { }
 
+    /** Mostra o limiar configurado sem o arredondar para um valor diferente. */
+    public static String decimal(double value) {
+        return Double.toString(value).replace('.', ',');
+    }
+
     /** Formata uma medição ou a indicação de indisponibilidade, sem substituir null por zero. */
     public static String measurement(Context context, @Nullable Double value, int formatRes) {
         return value == null ? context.getString(R.string.explorer_unavailable)

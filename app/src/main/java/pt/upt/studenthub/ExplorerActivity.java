@@ -11,18 +11,21 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.Locale;
 
 /** Ecrã da lista marítima: observa o ViewModel e converte estado/modelos em interface. */
 public class ExplorerActivity extends AppCompatActivity {
     private static final String KEY_LIST_POSITION = "explorer.list.position";
     private static final String KEY_DETAIL_ITEM = "explorer.detail.item";
     private static final int REQUEST_DETAIL = 100;
+    private static final int REQUEST_SETTINGS = 101;
+    private static final String KEY_SETTINGS_OPEN = "explorer.settings.open";
+    private boolean settingsOpen;
     private String pendingDetailKey;
     private ExplorerViewModel viewModel;
     private ItemAdapter adapter;
@@ -33,6 +36,7 @@ public class ExplorerActivity extends AppCompatActivity {
     private Parcelable pendingListPosition;
     private boolean restoring;
     private Beach displayedBeach;
+    private ExplorerSettings lastDataSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class ExplorerActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             pendingListPosition = savedInstanceState.getParcelable(KEY_LIST_POSITION);
             pendingDetailKey = savedInstanceState.getString(KEY_DETAIL_ITEM);
+            settingsOpen = savedInstanceState.getBoolean(KEY_SETTINGS_OPEN);
             restoring = true;
         }
         viewModel = new ViewModelProvider(this).get(ExplorerViewModel.class);
@@ -92,16 +97,19 @@ public class ExplorerActivity extends AppCompatActivity {
         count.setText(getResources().getQuantityString(
                 R.plurals.explorer_hour_count, state.items.size(), state.items.size()));
         ExplorerSettings displayedSettings = state.dataSettings == null ? state.settings : state.dataSettings;
-        threshold.setText(String.format(new Locale("pt", "PT"),
-                getString(R.string.explorer_surf_threshold), displayedSettings.waveThresholdMetres));
+        threshold.setText(getString(R.string.explorer_surf_threshold,
+                ExplorerFormat.decimal(displayedSettings.waveThresholdMetres)));
         boolean changed = adapter.submitItems(state.items, displayedSettings);
         if (pendingListPosition != null && hasData) {
             list.onRestoreInstanceState(pendingListPosition);
             pendingListPosition = null;
-        } else if (hasData && displayedBeach != null && displayedBeach != state.dataBeach) {
+        } else if (hasData && ((displayedBeach != null && displayedBeach != state.dataBeach)
+                || (lastDataSettings != null && (lastDataSettings.hourStep != displayedSettings.hourStep
+                || lastDataSettings.forecastDays != displayedSettings.forecastDays)))) {
             list.setSelection(0);
         }
         displayedBeach = state.dataBeach;
+        lastDataSettings = state.dataSettings;
         if (changed && state.status == ExplorerViewModel.Status.SUCCESS && !restoring) {
             list.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(this, R.anim.explorer_list_enter));
             list.scheduleLayoutAnimation();
@@ -135,6 +143,7 @@ public class ExplorerActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putString(KEY_DETAIL_ITEM, pendingDetailKey);
+        outState.putBoolean(KEY_SETTINGS_OPEN, settingsOpen);
         outState.putParcelable(KEY_LIST_POSITION,
                 pendingListPosition == null ? list.onSaveInstanceState() : pendingListPosition);
         super.onSaveInstanceState(outState);
@@ -150,7 +159,15 @@ public class ExplorerActivity extends AppCompatActivity {
                 viewModel.isFavorite(item.key())), REQUEST_DETAIL);
     }
 
-    /** Recebe o resultado do detalhe pelo mecanismo apresentado na Semana 4. */
+    private void openSettings() {
+        ExplorerViewModel.UiState state = viewModel.getState().getValue();
+        if (state != null && state.status != ExplorerViewModel.Status.LOADING && !settingsOpen) {
+            settingsOpen = true;
+            startActivityForResult(SettingsContract.createIntent(this, state.settings), REQUEST_SETTINGS);
+        }
+    }
+
+    /** Recebe resultados do detalhe e das definições pelo mecanismo apresentado na Semana 4. */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -162,10 +179,21 @@ public class ExplorerActivity extends AppCompatActivity {
                         data.getBooleanExtra(DetailContract.EXTRA_FAVORITE, false));
             }
             pendingDetailKey = null;
+        } else if (requestCode == REQUEST_SETTINGS) {
+            settingsOpen = false;
+            if (resultCode == RESULT_OK) {
+                ExplorerSettings settings = SettingsContract.read(data);
+                if (settings == null) {
+                    Toast.makeText(this, R.string.settings_invalid_result, Toast.LENGTH_LONG).show();
+                } else {
+                    viewModel.applySettings(settings);
+                    Toast.makeText(this, R.string.settings_saved, Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
-    /** Cria as ações já disponíveis; comparação e definições serão ligadas nas suas etapas. */
+    /** Cria as ações disponíveis; a comparação será ligada na etapa 7. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_explorer, menu);
@@ -179,6 +207,7 @@ public class ExplorerActivity extends AppCompatActivity {
         if (state != null) {
             boolean enabled = state.status != ExplorerViewModel.Status.LOADING;
             menu.findItem(R.id.action_refresh).setEnabled(enabled);
+            menu.findItem(R.id.action_settings).setEnabled(enabled);
             MenuItem beaches = menu.findItem(R.id.action_choose_beach);
             beaches.setEnabled(enabled);
             if (beaches.getSubMenu() != null) {
@@ -199,6 +228,8 @@ public class ExplorerActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             viewModel.refresh();
+        } else if (id == R.id.action_settings) {
+            openSettings();
         } else if (id == R.id.action_beach_matosinhos) {
             viewModel.selectBeach(Beach.MATOSINHOS);
         } else if (id == R.id.action_beach_povoa) {
