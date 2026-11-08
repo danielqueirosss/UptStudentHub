@@ -193,7 +193,7 @@ public class ExplorerActivity extends AppCompatActivity {
         }
     }
 
-    /** Cria as ações disponíveis; a comparação será ligada na etapa 7. */
+    /** Cria as ações de atualização, praia, comparação, definições e About. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_explorer, menu);
@@ -208,6 +208,7 @@ public class ExplorerActivity extends AppCompatActivity {
             boolean enabled = state.status != ExplorerViewModel.Status.LOADING;
             menu.findItem(R.id.action_refresh).setEnabled(enabled);
             menu.findItem(R.id.action_settings).setEnabled(enabled);
+            menu.findItem(R.id.action_compare).setEnabled(enabled);
             MenuItem beaches = menu.findItem(R.id.action_choose_beach);
             beaches.setEnabled(enabled);
             if (beaches.getSubMenu() != null) {
@@ -230,6 +231,11 @@ public class ExplorerActivity extends AppCompatActivity {
             viewModel.refresh();
         } else if (id == R.id.action_settings) {
             openSettings();
+        } else if (id == R.id.action_compare) {
+            ExplorerViewModel.UiState state = viewModel.getState().getValue();
+            if (state != null && state.status != ExplorerViewModel.Status.LOADING) {
+                startActivity(new Intent(this, CompareActivity.class));
+            }
         } else if (id == R.id.action_beach_matosinhos) {
             viewModel.selectBeach(Beach.MATOSINHOS);
         } else if (id == R.id.action_beach_povoa) {

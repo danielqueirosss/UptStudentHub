@@ -6,4 +6,6 @@
     <dimen name="explorer_icon_size">32dp</dimen>
     <dimen name="explorer_star_size">24dp</dimen>
     <dimen name="explorer_divider_height">1dp</dimen>
+    <dimen name="compare_gap">4dp</dimen>
+    <dimen name="compare_name_height">64dp</dimen>
 </resources>

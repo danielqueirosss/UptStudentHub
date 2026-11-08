@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compare_title">Comparar praias</string>
+    <string name="compare_heading">Ondulação atual</string>
+    <string name="compare_loading">%1$d de 3 pedidos concluídos…</string>
+    <string name="compare_finished">%1$d de 3 praias atualizadas.</string>
+    <string name="compare_beach_loading">A carregar…</string>
+    <string name="compare_beach_success">Atualizada</string>
+    <string name="compare_idle">Pronto</string>
+    <string name="compare_empty">Sem dados disponíveis.</string>
+    <string name="compare_previous">Últimos dados disponíveis</string>
+    <string name="compare_wave_height">Altura da onda</string>
+    <string name="compare_simulate_failure">Simular falha em Nazaré</string>
+    <string name="compare_debug_notice">Teste de falha em Nazaré ativo. Atualizar volta a consultar as três praias normalmente.</string>
+</resources>

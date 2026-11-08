@@ -46,5 +46,8 @@
             android:exported="false"
             android:label="@string/settings_title"
             android:parentActivityName=".ExplorerActivity" />
+        <activity android:name=".CompareActivity"
+            android:exported="false" android:label="@string/compare_title"
+            android:parentActivityName=".ExplorerActivity" />
     </application>
 </manifest>

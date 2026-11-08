@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="@dimen/spacing_s">
+        <TextView android:id="@+id/tvCompareBeach"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:minHeight="@dimen/compare_name_height" android:gravity="center_vertical"
+            android:textAppearance="?attr/textAppearanceTitleSmall" />
+        <TextView android:id="@+id/tvCompareStatus"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+        <ProgressBar android:id="@+id/progressCompareBeach" style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:indeterminate="true" android:visibility="gone" />
+        <TextView android:id="@+id/tvComparePrevious"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_s" android:text="@string/compare_previous"
+            android:textAppearance="?attr/textAppearanceLabelSmall" android:visibility="gone" />
+        <LinearLayout android:id="@+id/compareValues"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:visibility="gone">
+            <TextView android:id="@+id/tvCompareTime"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s" android:textAppearance="?attr/textAppearanceBodySmall" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m" android:text="@string/compare_wave_height"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+            <TextView android:id="@+id/tvCompareHeight"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
+            <TextView android:id="@+id/tvComparePeriod"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_m" />
+            <TextView android:id="@+id/tvCompareDirection"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s" />
+            <TextView android:id="@+id/tvCompareWater"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_s" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

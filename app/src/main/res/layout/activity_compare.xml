@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fitsSystemWindows="true" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="@dimen/spacing_s">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/compare_heading" android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+        <TextView android:id="@+id/tvCompareSummary"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_s" />
+        <TextView android:id="@+id/tvCompareDebug"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_s" android:visibility="gone"
+            android:text="@string/compare_debug_notice" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:baselineAligned="false"
+            android:layout_marginTop="@dimen/spacing_s">
+            <Button android:id="@+id/btnCompareRefresh"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_s" android:minHeight="@dimen/touch_target"
+                android:text="@string/btn_refresh" />
+            <Button android:id="@+id/btnCompareCancel" style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:minHeight="@dimen/touch_target" android:text="@string/btn_cancel" android:enabled="false" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:baselineAligned="false"
+            android:layout_marginTop="@dimen/spacing_m">
+            <include android:id="@+id/compareMatosinhos" layout="@layout/item_compare_beach"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginEnd="@dimen/compare_gap" />
+            <include android:id="@+id/comparePovoa" layout="@layout/item_compare_beach"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginEnd="@dimen/compare_gap" />
+            <include android:id="@+id/compareNazare" layout="@layout/item_compare_beach"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" />
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_m" android:text="@string/explorer_data_source"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+    </LinearLayout>
+</ScrollView>

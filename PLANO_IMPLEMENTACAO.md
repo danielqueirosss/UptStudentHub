@@ -35,3 +35,6 @@ Marcar/desmarcar favorito prepara um resultado com a chave praia + data/hora, de
 
 ETAPA 6
 Definições: SettingsActivity permite escolher limiar da onda (0,5–5,0 m), intervalo da lista (1 ou 3 horas), previsão de 1 ou 2 dias e atualização periódica (1–60 minutos). Usa EditText, RadioGroup e CheckBox. Valida os campos, aceita vírgula ou ponto decimal e preserva o formulário em rotação. Guardar devolve as escolhas ao Explorer por resultado e recarrega a lista; Cancelar, Back e Up descartam as alterações. As definições ficam em memória; o ciclo periódico será ligado na etapa 9.
+
+ETAPA 7
+Comparação: CompareActivity mostra Matosinhos, Póvoa de Varzim e Nazaré lado a lado. CompareViewModel executa três pedidos em paralelo com um pool de três threads e atualiza cada coluna independentemente. Inclui Atualizar, Cancelar, erros por praia e identificação dos últimos dados disponíveis. A opção de debug simula uma falha HTTP apenas em Nazaré; as outras praias continuam a funcionar. A rotação conserva os resultados e Up regressa à lista existente.
