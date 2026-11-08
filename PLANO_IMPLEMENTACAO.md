@@ -38,3 +38,6 @@ Definições: SettingsActivity permite escolher limiar da onda (0,5–5,0 m), in
 
 ETAPA 7
 Comparação: CompareActivity mostra Matosinhos, Póvoa de Varzim e Nazaré lado a lado. CompareViewModel executa três pedidos em paralelo com um pool de três threads e atualiza cada coluna independentemente. Inclui Atualizar, Cancelar, erros por praia e identificação dos últimos dados disponíveis. A opção de debug simula uma falha HTTP apenas em Nazaré; as outras praias continuam a funcionar. A rotação conserva os resultados e Up regressa à lista existente.
+
+ETAPA 8
+Paisagem: layout próprio com lista e detalhe lado a lado, sem Fragments. Tocar numa linha atualiza o painel e destaca a seleção; em retrato continua a abrir DetailActivity. O painel reutiliza o layout do detalhe e DetailViewModel, permite atualizar a meteorologia e gerir favoritos com confirmação e Toast. Mudar de hora invalida respostas antigas; mudar de praia ou excluir a hora nas definições limpa a seleção. A seleção, os resultados e a posição exata da lista sobrevivem à rotação sem repetir pedidos.

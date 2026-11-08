@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal" android:baselineAligned="false" android:fitsSystemWindows="true">
+    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="match_parent"
+        android:orientation="vertical" android:padding="@dimen/spacing_s">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <TextView android:id="@+id/tvExplorerGreeting" android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:textAppearance="?attr/textAppearanceBodySmall" />
+            <TextView android:id="@+id/tvExplorerBeach" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:textAppearance="?attr/textAppearanceTitleMedium" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvExplorerStatus" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+        <ProgressBar android:id="@+id/progressExplorer" style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:indeterminate="true" android:visibility="gone" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:baselineAligned="false">
+            <Button android:id="@+id/btnExplorerRefresh" android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:minHeight="@dimen/touch_target" android:text="@string/btn_refresh" />
+            <Button android:id="@+id/btnExplorerCancel" style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                android:minHeight="@dimen/touch_target" android:text="@string/btn_cancel" android:enabled="false" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvExplorerRetained" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall" android:visibility="gone" />
+        <TextView android:id="@+id/tvExplorerCount" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+        <TextView android:id="@+id/tvExplorerThreshold" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBodySmall" />
+        <ListView android:id="@+id/listExplorer" android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1" android:saveEnabled="false" android:divider="?android:attr/listDivider"
+            android:dividerHeight="@dimen/explorer_divider_height" />
+    </LinearLayout>
+    <!-- O painel existe apenas em paisagem; a Activity verifica a sua presença antes de o usar. -->
+    <FrameLayout android:id="@+id/explorerDetailPane" tools:ignore="InconsistentLayout" android:layout_width="0dp" android:layout_weight="1"
+        android:layout_height="match_parent">
+        <TextView android:id="@+id/tvSelectDetail" tools:ignore="InconsistentLayout" android:layout_width="match_parent" android:layout_height="match_parent"
+            android:gravity="center" android:padding="@dimen/spacing_m" android:text="@string/explorer_select_detail" />
+        <include android:id="@+id/explorerDetailContent" tools:ignore="InconsistentLayout" layout="@layout/activity_detail"
+            android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" />
+    </FrameLayout>
+</LinearLayout>

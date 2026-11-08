@@ -23,6 +23,14 @@ public final class ItemAdapter extends BaseAdapter {
     private List<MarineHour> items = Collections.emptyList();
     private Set<String> favorites = Collections.emptySet();
     private ExplorerSettings settings = ExplorerSettings.defaults();
+    private String selectedKey;
+
+    /** Assinala a hora selecionada sem deslocar a lista. */
+    public void select(@Nullable String key) {
+        if (java.util.Objects.equals(selectedKey, key)) return;
+        selectedKey = key;
+        notifyDataSetChanged();
+    }
 
     /** O Context pertence ao adapter do ecrã, nunca ao ViewModel. */
     public ItemAdapter(Context context) {
@@ -80,6 +88,8 @@ public final class ItemAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         MarineHour item = getItem(position);
+        convertView.setBackgroundResource(R.drawable.marine_selection);
+        convertView.setActivated(item.key().equals(selectedKey));
         holder.time.setText(ExplorerFormat.time(context, item.time));
         holder.height.setText(context.getString(R.string.explorer_height,
                 measurement(item.waveHeight, R.string.explorer_metres)));

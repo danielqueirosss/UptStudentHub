@@ -2,7 +2,6 @@ package pt.upt.studenthub;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 /** Ecrã da lista marítima: observa o ViewModel e converte estado/modelos em interface. */
 public class ExplorerActivity extends AppCompatActivity {
     private static final String KEY_LIST_POSITION = "explorer.list.position";
+    private static final String KEY_LIST_OFFSET = "explorer.list.offset";
     private static final String KEY_DETAIL_ITEM = "explorer.detail.item";
     private static final int REQUEST_DETAIL = 100;
     private static final int REQUEST_SETTINGS = 101;
@@ -33,10 +33,16 @@ public class ExplorerActivity extends AppCompatActivity {
     private TextView beach, status, retained, count, threshold;
     private ProgressBar progress;
     private Button refresh, cancel;
-    private Parcelable pendingListPosition;
+    private int pendingListPosition = -1;
+    private int pendingListOffset;
     private boolean restoring;
     private Beach displayedBeach;
     private ExplorerSettings lastDataSettings;
+    private static final String KEY_SELECTION = "explorer.selection";
+    private static final String KEY_PANEL_CONFIRMATION = "explorer.panel.confirmation";
+    private DetailViewModel detailViewModel;
+    private DetailPanel detailPanel;
+    private boolean panelConfirmationPending;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +69,44 @@ public class ExplorerActivity extends AppCompatActivity {
         adapter = new ItemAdapter(this);
         list.setAdapter(adapter);
         if (savedInstanceState != null) {
-            pendingListPosition = savedInstanceState.getParcelable(KEY_LIST_POSITION);
+            pendingListPosition = savedInstanceState.getInt(KEY_LIST_POSITION, -1);
+            pendingListOffset = savedInstanceState.getInt(KEY_LIST_OFFSET);
             pendingDetailKey = savedInstanceState.getString(KEY_DETAIL_ITEM);
             settingsOpen = savedInstanceState.getBoolean(KEY_SETTINGS_OPEN);
             restoring = true;
         }
         viewModel = new ViewModelProvider(this).get(ExplorerViewModel.class);
+        detailViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
+        if (savedInstanceState != null && detailViewModel.getSelected() == null) {
+            Bundle selection = savedInstanceState.getBundle(KEY_SELECTION);
+            if (selection != null) detailViewModel.remember(DetailContract.readItem(new Intent().putExtras(selection)));
+        }
+        panelConfirmationPending = savedInstanceState != null && savedInstanceState.getBoolean(KEY_PANEL_CONFIRMATION);
+        if (findViewById(R.id.explorerDetailPane) != null) {
+            detailPanel = new DetailPanel(this, viewModel, detailViewModel, savedInstanceState != null);
+            if (panelConfirmationPending) {
+                detailPanel.confirmRemoval();
+            }
+        }
         refresh.setOnClickListener(v -> viewModel.refresh());
         cancel.setOnClickListener(v -> viewModel.cancel());
         list.setOnItemClickListener((parent, view, position, id) -> openDetail(adapter.getItem(position)));
         viewModel.getState().observe(this, this::render);
         viewModel.getFavorites().observe(this, adapter::submitFavorites);
         viewModel.loadIfNeeded();
+        updateSelection();
+    }
+
+    private void updateSelection() {
+        MarineHour selected = detailViewModel.getSelected();
+        adapter.select(selected == null ? null : selected.key());
+        if (detailPanel != null) {
+            ExplorerViewModel.UiState state = viewModel.getState().getValue();
+            if (selected != null && state != null && state.status != ExplorerViewModel.Status.LOADING) {
+                detailViewModel.loadIfNeeded(selected);
+            }
+            detailPanel.render();
+        }
     }
 
     private void render(ExplorerViewModel.UiState state) {
@@ -100,9 +132,22 @@ public class ExplorerActivity extends AppCompatActivity {
         threshold.setText(getString(R.string.explorer_surf_threshold,
                 ExplorerFormat.decimal(displayedSettings.waveThresholdMetres)));
         boolean changed = adapter.submitItems(state.items, displayedSettings);
-        if (pendingListPosition != null && hasData) {
-            list.onRestoreInstanceState(pendingListPosition);
-            pendingListPosition = null;
+        MarineHour selected = detailViewModel.getSelected();
+        if (selected != null && (state.status == ExplorerViewModel.Status.SUCCESS
+                || state.status == ExplorerViewModel.Status.EMPTY)) {
+            MarineHour matching = null;
+            for (MarineHour item : state.items) {
+                if (selected.key().equals(item.key())) { matching = item; break; }
+            }
+            detailViewModel.remember(matching);
+        }
+        updateSelection();
+        if (pendingListPosition >= 0 && hasData) {
+            final int position = Math.min(pendingListPosition, adapter.getCount() - 1);
+            final int offset = pendingListOffset;
+            // Aplicar após o primeiro layout preserva também uma primeira linha parcialmente visível.
+            list.post(() -> list.setSelectionFromTop(position, offset));
+            pendingListPosition = -1;
         } else if (hasData && ((displayedBeach != null && displayedBeach != state.dataBeach)
                 || (lastDataSettings != null && (lastDataSettings.hourStep != displayedSettings.hourStep
                 || lastDataSettings.forecastDays != displayedSettings.forecastDays)))) {
@@ -144,14 +189,30 @@ public class ExplorerActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putString(KEY_DETAIL_ITEM, pendingDetailKey);
         outState.putBoolean(KEY_SETTINGS_OPEN, settingsOpen);
-        outState.putParcelable(KEY_LIST_POSITION,
-                pendingListPosition == null ? list.onSaveInstanceState() : pendingListPosition);
+        MarineHour selected = detailViewModel.getSelected();
+        if (selected != null) outState.putBundle(KEY_SELECTION,
+                DetailContract.createIntent(this, selected, viewModel.isFavorite(selected.key())).getExtras());
+        outState.putBoolean(KEY_PANEL_CONFIRMATION, detailPanel != null
+                ? detailPanel.isConfirming() : panelConfirmationPending);
+        outState.putInt(KEY_LIST_POSITION, pendingListPosition >= 0
+                ? pendingListPosition : list.getFirstVisiblePosition());
+        View first = list.getChildAt(0);
+        outState.putInt(KEY_LIST_OFFSET, pendingListPosition >= 0 ? pendingListOffset
+                : first == null ? 0 : first.getTop() - list.getPaddingTop());
         super.onSaveInstanceState(outState);
     }
 
     private void openDetail(MarineHour item) {
         ExplorerViewModel.UiState state = viewModel.getState().getValue();
         if (state == null || state.status == ExplorerViewModel.Status.LOADING || pendingDetailKey != null) {
+            return;
+        }
+        detailViewModel.remember(item);
+        panelConfirmationPending = false;
+        adapter.select(item.key());
+        if (detailPanel != null) {
+            detailViewModel.loadIfNeeded(item);
+            detailPanel.render();
             return;
         }
         pendingDetailKey = item.key();
@@ -255,5 +316,11 @@ public class ExplorerActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (detailPanel != null) detailPanel.closeDialog();
+        super.onDestroy();
     }
 }

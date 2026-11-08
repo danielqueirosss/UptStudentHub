@@ -56,11 +56,29 @@ public class DetailViewModel extends ViewModel {
     /** Inicializa uma única vez por ecrã; uma rotação não volta a fazer o pedido B. */
     @MainThread
     public void loadIfNeeded(MarineHour item) {
-        if (!cleared && selected == null) {
-            selected = item;
-            refresh();
-        }
+        remember(item);
+        if (current.status == ExplorerViewModel.Status.IDLE) refresh();
     }
+
+    /** Guarda a seleção sem iniciar rede; mudar de hora invalida a resposta anterior. */
+    @MainThread
+    public void remember(@Nullable MarineHour item) {
+        if (cleared) return;
+        if (selected != null && item != null && selected.key().equals(item.key())) {
+            selected = item;
+            return;
+        }
+        if (selected == null && item == null) return;
+        generation++;
+        if (task != null) task.cancel(true);
+        task = null;
+        selected = item;
+        publish(new UiState(ExplorerViewModel.Status.IDLE, ExplorerViewModel.ErrorType.NONE, 0, null));
+    }
+
+    /** Seleção em memória, partilhada pelas recriações do mesmo ecrã. */
+    @Nullable
+    public MarineHour getSelected() { return selected; }
 
     /** Permite repetir um pedido falhado ou atualizar o detalhe sem pedidos duplicados. */
     @MainThread
