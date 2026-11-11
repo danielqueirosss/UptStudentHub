@@ -72,6 +72,28 @@ public class ExplorerViewModel extends ViewModel {
     // Este monitor torna atómicos o post do worker e a limpeza de callbacks em onCleared().
     private final Object deliveryLock = new Object();
     private boolean cleared;
+    private Boolean lastOnline;
+    private boolean networkRecoveryPending;
+
+    /** Memoriza a transição de rede sem guardar objetos Android no ViewModel. */
+    @MainThread
+    public void updateConnectivity(boolean online) {
+        if (!online) networkRecoveryPending = false;
+        else if (Boolean.FALSE.equals(lastOnline)
+                && (current.status == Status.ERROR || current.status == Status.LOADING)) {
+            networkRecoveryPending = true;
+        }
+        lastOnline = online;
+    }
+
+    /** Consome uma única tentativa de recuperação; espera se o pedido ainda estiver em curso. */
+    @MainThread
+    public boolean takeNetworkRecovery() {
+        if (cleared || !Boolean.TRUE.equals(lastOnline) || !networkRecoveryPending
+                || current.status != Status.ERROR) return false;
+        networkRecoveryPending = false;
+        return true;
+    }
 
     /** Estado observável, sem expor MutableLiveData aos ecrãs. */
     public LiveData<UiState> getState() {
@@ -202,6 +224,9 @@ public class ExplorerViewModel extends ViewModel {
     }
 
     private void publish(UiState value) {
+        if (value.status == Status.SUCCESS || value.status == Status.EMPTY || value.status == Status.CANCELLED) {
+            networkRecoveryPending = false;
+        }
         current = value;
         state.setValue(value); // Sempre na main thread.
     }

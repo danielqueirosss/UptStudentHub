@@ -43,6 +43,7 @@ public class ExplorerActivity extends AppCompatActivity {
     private DetailViewModel detailViewModel;
     private DetailPanel detailPanel;
     private boolean panelConfirmationPending;
+    private ExplorerDeviceEvents deviceEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class ExplorerActivity extends AppCompatActivity {
             restoring = true;
         }
         viewModel = new ViewModelProvider(this).get(ExplorerViewModel.class);
+        deviceEvents = new ExplorerDeviceEvents(this, viewModel);
         detailViewModel = new ViewModelProvider(this).get(DetailViewModel.class);
         if (savedInstanceState != null && detailViewModel.getSelected() == null) {
             Bundle selection = savedInstanceState.getBundle(KEY_SELECTION);
@@ -160,6 +162,7 @@ public class ExplorerActivity extends AppCompatActivity {
             list.scheduleLayoutAnimation();
         }
         restoring = false;
+        deviceEvents.stateChanged();
         invalidateOptionsMenu();
     }
 
@@ -316,6 +319,18 @@ public class ExplorerActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        deviceEvents.start();
+    }
+
+    @Override
+    protected void onStop() {
+        deviceEvents.stop();
+        super.onStop();
     }
 
     @Override

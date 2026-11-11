@@ -1,0 +1,4 @@
+<resources>
+    <string name="explorer_offline">Sem ligação à Internet.</string>
+    <string name="explorer_battery_low">Bateria fraca: atualização periódica suspensa.</string>
+</resources>

@@ -13,6 +13,16 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_s"
         android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+    <TextView android:id="@+id/tvExplorerOffline"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_s" android:visibility="gone"
+        android:text="@string/explorer_offline" android:accessibilityLiveRegion="polite"
+        android:textColor="?attr/colorOnErrorContainer" android:background="?attr/colorErrorContainer" />
+    <TextView android:id="@+id/tvExplorerBattery"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_s" android:visibility="gone"
+        android:text="@string/explorer_battery_low" android:accessibilityLiveRegion="polite"
+        android:textColor="?attr/colorOnSecondaryContainer" android:background="?attr/colorSecondaryContainer" />
     <TextView android:id="@+id/tvExplorerStatus"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_s"
