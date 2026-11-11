@@ -44,3 +44,6 @@ Paisagem: layout próprio com lista e detalhe lado a lado, sem Fragments. Tocar 
 
 ETAPA 9
 Eventos do dispositivo: ExplorerDeviceEvents regista NetworkCallback e o receiver de bateria em onStart e remove-os em onStop. Mostra faixas de falta de Internet e bateria fraca em retrato e paisagem. Quando a rede regressa após um erro, a lista recupera automaticamente, sem duplicar um pedido em curso. O Handler atualiza a lista pelo intervalo das definições enquanto o Explorer está visível, com rede e sem bateria fraca. ACTION_BATTERY_LOW suspende o ciclo e ACTION_BATTERY_OKAY retoma-o; a consulta inicial da bateria cobre alterações ocorridas fora do ecrã. Os pedidos continuam no ViewModel e os eventos de rede passam pela main thread.
+
+ETAPA 10
+Revisão de menus, navegação e documentação: confirmadas as ações do Explorer, a escolha exclusiva da praia, a identificação no Sobre e os regressos por Up. Adicionadas transições XML de entrada e saída aos quatro ecrãs do módulo, através de um tema comum que herda o tema da aplicação. A entrada das linhas, o cartão de detalhe e as transições cobrem as três situações de animação pedidas. ExplorerActivity regista agora todos os eventos de ciclo de vida com a tag ExplorerLifecycle; DetailActivity mantém DetailLifecycle. Completados os Javadoc em falta nas classes e métodos públicos e revistos os recursos.

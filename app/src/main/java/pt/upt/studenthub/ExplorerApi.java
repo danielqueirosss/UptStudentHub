@@ -3,6 +3,7 @@ package pt.upt.studenthub;
 import android.net.Uri;
 
 
+/** Constrói os URLs Open-Meteo com Uri.Builder e o fuso horário de Lisboa. */
 public final class ExplorerApi {
     public static final String TIMEZONE = "Europe/Lisbon";
     private static final String MARINE_HOST = "marine-api.open-meteo.com";
@@ -43,12 +44,14 @@ public final class ExplorerApi {
                 .build().toString();
     }
 
+    /** URL inválido usado apenas na simulação de falha da comparação em debug. */
     public static String brokenMarineUrl(Beach beach) {
         return base(MARINE_HOST, "marine-does-not-exist", beach.latitude, beach.longitude)
                 .appendQueryParameter("current", MARINE_FIELDS)
                 .build().toString();
     }
 
+    /** Constrói o pedido de meteorologia atual do campus para o módulo 2. */
     public static String campusWeatherUrl() {
         return campusUrl("forecast");
     }

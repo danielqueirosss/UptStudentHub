@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.List;
 
+/** Apresenta o horário e acompanha a sincronização em segundo plano. */
 public class TimetableActivity extends AppCompatActivity {
     public static final String EXTRA_STUDENT_NAME = "pt.upt.studenthub.STUDENT_NAME";
     private static final String KEY_TAPS = "key_taps";
@@ -137,12 +138,14 @@ public class TimetableActivity extends AppCompatActivity {
 
     // --- Options Menu (Week 5) ---
 
+    /** Cria as ações do menu a partir dos recursos XML. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_timetable, menu);
         return true;
     }
 
+    /** Atualiza a disponibilidade das ações de acordo com o carregamento. */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem clear = menu.findItem(R.id.action_clear);
@@ -150,6 +153,7 @@ public class TimetableActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    /** Encaminha a ação do menu para a operação correspondente. */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

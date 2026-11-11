@@ -6,6 +6,7 @@ import androidx.annotation.StringRes;
  */
 public final class WeatherCodes {
     private WeatherCodes() { }
+    /** Converte o código meteorológico WMO num recurso de texto. */
     @StringRes
     public static int describe(int code) {
         if (code == 0) return R.string.wmo_clear;

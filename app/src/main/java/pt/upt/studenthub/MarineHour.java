@@ -2,6 +2,7 @@ package pt.upt.studenthub;
 
 import androidx.annotation.Nullable;
 
+/** Previsão marítima imutável; medições ausentes são representadas por null. */
 public final class MarineHour {
     public final Beach beach;
     public final String time;

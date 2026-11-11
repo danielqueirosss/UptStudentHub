@@ -43,6 +43,7 @@ public class WeatherActivity extends AppCompatActivity {
     /** BroadcastReceiver: the system broadcasts an Intent whenever airplane mode changes.
      */
     private final BroadcastReceiver airplaneModeReceiver = new BroadcastReceiver() {
+        /** Trata o evento do sistema na main thread, sem executar pedidos de rede. */
         @Override
         public void onReceive(Context context, Intent intent) {
             // Runs on the MAIN thread: keep it short (no network, no disk here)
@@ -56,11 +57,13 @@ public class WeatherActivity extends AppCompatActivity {
      broadcast. */
     private final ConnectivityManager.NetworkCallback networkCallback =
             new ConnectivityManager.NetworkCallback() {
+                /** Encaminha a disponibilidade da rede para a main thread. */
                 @Override
                 public void onAvailable(@NonNull Network network) {
                     // Called on a BACKGROUND thread -> go back to the UI thread (Week 6, rule 2)
                     runOnUiThread(() -> setOnline(true));
                 }
+                /** Encaminha a perda da rede para a main thread. */
                 @Override
                 public void onLost(@NonNull Network network) {
                     runOnUiThread(() -> setOnline(false));
@@ -190,11 +193,13 @@ public class WeatherActivity extends AppCompatActivity {
 // Week 5
     }
     // ---------------- Options Menu (Week 5) ----------------
+    /** Cria as ações do menu a partir dos recursos XML. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_weather, menu);
         return true;
     }
+    /** Atualiza a disponibilidade das ações de acordo com o carregamento. */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean loading = viewModel.getStatus().getValue() ==
@@ -203,6 +208,7 @@ public class WeatherActivity extends AppCompatActivity {
         menu.findItem(R.id.action_server_error).setEnabled(!loading);
         return super.onPrepareOptionsMenu(menu);
     }
+    /** Encaminha a ação do menu para a operação correspondente. */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

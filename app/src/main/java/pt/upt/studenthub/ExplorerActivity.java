@@ -2,6 +2,7 @@ package pt.upt.studenthub;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 /** Ecrã da lista marítima: observa o ViewModel e converte estado/modelos em interface. */
 public class ExplorerActivity extends AppCompatActivity {
+    private static final String TAG = "ExplorerLifecycle";
     private static final String KEY_LIST_POSITION = "explorer.list.position";
     private static final String KEY_LIST_OFFSET = "explorer.list.offset";
     private static final String KEY_DETAIL_ITEM = "explorer.detail.item";
@@ -48,6 +50,7 @@ public class ExplorerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_explorer);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -324,17 +327,29 @@ public class ExplorerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "onStart");
         deviceEvents.start();
     }
 
     @Override
     protected void onStop() {
+        Log.d(TAG, "onStop");
         deviceEvents.stop();
         super.onStop();
     }
 
     @Override
+    protected void onResume() { super.onResume(); Log.d(TAG, "onResume"); }
+
+    @Override
+    protected void onPause() { Log.d(TAG, "onPause"); super.onPause(); }
+
+    @Override
+    protected void onRestart() { super.onRestart(); Log.d(TAG, "onRestart"); }
+
+    @Override
     protected void onDestroy() {
+        Log.d(TAG, "onDestroy");
         if (detailPanel != null) detailPanel.closeDialog();
         super.onDestroy();
     }

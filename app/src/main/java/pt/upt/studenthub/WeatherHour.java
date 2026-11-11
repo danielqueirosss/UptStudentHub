@@ -2,6 +2,7 @@ package pt.upt.studenthub;
 
 import androidx.annotation.Nullable;
 
+/** Meteorologia imutável da hora selecionada, com medições opcionais. */
 public final class WeatherHour {
     public final Beach beach;
     public final String time;

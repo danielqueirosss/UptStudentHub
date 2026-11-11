@@ -9,6 +9,7 @@ public final class WeatherReport {
     public final double windSpeed; // km/h
     public final int weatherCode; // WMO weather code
     public final String time; // local time of the observation, e.g. "2026-10-15T10:45"
+    /** Guarda temperatura, humidade, vento, código meteorológico e hora da observação. */
     public WeatherReport(double temperature, int humidity, double windSpeed,
                          int weatherCode, String time) {
         this.temperature = temperature;

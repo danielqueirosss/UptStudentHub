@@ -17,6 +17,7 @@ import java.util.concurrent.Future;
  * RULE: no references to Activity, View or Context here.
  */
 public class TimetableViewModel extends ViewModel {
+    /** Estados da sincronização do horário. */
     public enum State { IDLE, RUNNING, DONE, CANCELLED }
 
     private static final long SIMULATED_DELAY_MS = 800;
@@ -34,8 +35,11 @@ public class TimetableViewModel extends ViewModel {
     private Future<?> currentTask;
 
     // ... exposed read-only
+    /** Expõe o estado observável da sincronização. */
     public LiveData<State> getState() { return state; }
+    /** Expõe a percentagem de progresso da sincronização. */
     public LiveData<Integer> getProgress() { return progress; }
+    /** Expõe as sessões do horário sem permitir alterar o LiveData. */
     public LiveData<List<String>> getSessions() { return sessions; }
 
     /** Called on the UI thread. Starts the simulated download. */

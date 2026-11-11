@@ -10,6 +10,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+/** Entrada da aplicação: valida o nome e abre os três módulos. */
 public class MainActivity extends AppCompatActivity {
     private EditText etName;
     @Override
@@ -65,11 +66,13 @@ public class MainActivity extends AppCompatActivity {
                     .build());
         }
     }
+    /** Cria as ações do menu a partir dos recursos XML. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    /** Encaminha a ação do menu para a operação correspondente. */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_about) {

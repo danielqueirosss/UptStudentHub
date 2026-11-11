@@ -7,11 +7,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+/** Cliente HTTP partilhado, com timeouts, cancelamento e libertação da ligação. */
 public final class HttpClient {
 
     static final int TIMEOUT_MS = 10_000;
     private HttpClient() { }
 
+    /** Erro HTTP que preserva o código devolvido pelo servidor. */
     public static final class HttpStatusException extends IOException {
         public final int code;
         /** Guarda o código HTTP para a Activity apresentar uma mensagem precisa. */

@@ -16,7 +16,9 @@ import java.util.concurrent.Future;
  * Rule: no Activity, View or Context here — errors are reported as an enum.
  */
 public class WeatherViewModel extends ViewModel {
+    /** Estados do carregamento da meteorologia do campus. */
     public enum Status { IDLE, LOADING, SUCCESS, ERROR }
+    /** Tipos de falha apresentados pelo módulo de meteorologia. */
     public enum ErrorType { NO_CONNECTION, TIMEOUT, HTTP, PARSE }
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
@@ -25,9 +27,13 @@ public class WeatherViewModel extends ViewModel {
     private final MutableLiveData<ErrorType> error = new MutableLiveData<>();
     private int lastHttpCode; // only written on the main thread
     private Future<?> currentTask;
+    /** Expõe o estado observável do pedido de meteorologia. */
     public LiveData<Status> getStatus() { return status; }
+    /** Expõe o último relatório meteorológico disponível. */
     public LiveData<WeatherReport> getReport() { return report; }
+    /** Expõe o tipo de erro para a Activity escolher a mensagem. */
     public LiveData<ErrorType> getError() { return error; }
+    /** Devolve o código do último erro HTTP. */
     public int getLastHttpCode() { return lastHttpCode; }
     /** Called on the UI thread. Downloads and parses the weather on the worker thread. */
     public void load(String url) {

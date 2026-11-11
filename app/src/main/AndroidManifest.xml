@@ -33,20 +33,24 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ExplorerActivity"
+            android:theme="@style/Theme.UPTStudentHub.Explorer"
             android:exported="false"
             android:label="@string/explorer_label"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DetailActivity"
+            android:theme="@style/Theme.UPTStudentHub.Explorer"
             android:exported="false"
             android:label="@string/detail_label"
             android:parentActivityName=".ExplorerActivity" />
         <activity
             android:name=".SettingsActivity"
+            android:theme="@style/Theme.UPTStudentHub.Explorer"
             android:exported="false"
             android:label="@string/settings_title"
             android:parentActivityName=".ExplorerActivity" />
         <activity android:name=".CompareActivity"
+            android:theme="@style/Theme.UPTStudentHub.Explorer"
             android:exported="false" android:label="@string/compare_title"
             android:parentActivityName=".ExplorerActivity" />
     </application>

@@ -34,6 +34,7 @@ public class ExplorerViewModel extends ViewModel {
     /** A Activity converte estes valores em recursos de texto; NONE indica ausência de erro. */
     public enum ErrorType { NONE, NO_CONNECTION, TIMEOUT, HTTP, PARSE }
 
+    /** Estado imutável da lista, incluindo os dados anteriores e as definições que os produziram. */
     public static final class UiState {
         public final Status status;
         public final ErrorType error;

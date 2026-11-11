@@ -1,0 +1,12 @@
+<resources>
+    <integer name="screen_transition_duration">220</integer>
+    <style name="ExplorerWindowAnimations" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/screen_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/screen_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/screen_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/screen_close_exit</item>
+    </style>
+    <style name="Theme.UPTStudentHub.Explorer" parent="Theme.UPTStudentHub">
+        <item name="android:windowAnimationStyle">@style/ExplorerWindowAnimations</item>
+    </style>
+</resources>

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
+/** Validação das horas ISO recebidas da API e dos extras. */
 final class ExplorerTime {
     private ExplorerTime() { }
 

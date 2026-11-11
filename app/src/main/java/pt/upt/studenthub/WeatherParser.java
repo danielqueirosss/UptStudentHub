@@ -11,6 +11,7 @@ import org.json.JSONObject;
  */
 public final class WeatherParser {
     private WeatherParser() { }
+    /** Converte o JSON da meteorologia do campus num modelo imutável. */
     public static WeatherReport parse(String json) throws JSONException {
         JSONObject root = new JSONObject(json); // whole document
         JSONObject current = root.getJSONObject("current"); // nested object
