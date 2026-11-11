@@ -47,3 +47,6 @@ Eventos do dispositivo: ExplorerDeviceEvents regista NetworkCallback e o receive
 
 ETAPA 10
 Revisão de menus, navegação e documentação: confirmadas as ações do Explorer, a escolha exclusiva da praia, a identificação no Sobre e os regressos por Up. Adicionadas transições XML de entrada e saída aos quatro ecrãs do módulo, através de um tema comum que herda o tema da aplicação. A entrada das linhas, o cartão de detalhe e as transições cobrem as três situações de animação pedidas. ExplorerActivity regista agora todos os eventos de ciclo de vida com a tag ExplorerLifecycle; DetailActivity mantém DetailLifecycle. Completados os Javadoc em falta nas classes e métodos públicos e revistos os recursos.
+
+ETAPA 11
+Tema escuro: implementado o único bónus, com cores em values-night e um tema DayNight comum. A aplicação acompanha o tema do Android no ecrã inicial, horário, meteorologia do campus e todos os ecrãs do Explorer. Adaptados fundos, textos, cartões, ícones, favoritos, menus, diálogos e faixas de aviso. As barras do sistema usam recursos compatíveis com a versão do Android; a meteorologia tem cores próprias para manter o contraste em ambos os temas e orientações.
