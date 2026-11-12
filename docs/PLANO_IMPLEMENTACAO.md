@@ -50,3 +50,6 @@ Revisão de menus, navegação e documentação: confirmadas as ações do Explo
 
 ETAPA 11
 Tema escuro: implementado o único bónus, com cores em values-night e um tema DayNight comum. A aplicação acompanha o tema do Android no ecrã inicial, horário, meteorologia do campus e todos os ecrãs do Explorer. Adaptados fundos, textos, cartões, ícones, favoritos, menus, diálogos e faixas de aviso. As barras do sistema usam recursos compatíveis com a versão do Android; a meteorologia tem cores próprias para manter o contraste em ambos os temas e orientações.
+
+ETAPA 12
+Validação e entrega: conferidos RF1–RF19 e RT1–RT12, preparados mapa de requisitos, matriz de testes e evidências. Removidos testes de exemplo e dependências sem uso; versões de Lifecycle centralizadas no catálogo Gradle. A compilação e o Lint passaram (0 erros, 12 avisos e 0 HardcodedText). O APK instalou e os percursos principais e de falha foram verificados num emulador API 34. O projeto extraído do ZIP compilou numa pasta nova.
