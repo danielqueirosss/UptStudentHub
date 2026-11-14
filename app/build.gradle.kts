@@ -7,7 +7,7 @@ android {
     compileSdk {
         version = release(37)
     }
-
+    /* link do repositório no github: https://github.com/danielqueirosss/UptStudentHub */
     defaultConfig {
         applicationId = "pt.upt.studenthub.a51602"
         minSdk = 24
